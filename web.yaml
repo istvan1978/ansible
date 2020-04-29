@@ -1,0 +1,23 @@
+--- # start web server
+- hosts: webservers
+  become: yes
+  vars:
+    target_service: httpd
+    target_state: started
+  tasks:
+  - name: install httpd
+    yum:
+      name: "{{ target_service }}"
+      state: latest
+  - name: create index.html file
+    file:
+      name: /var/www/html/index.html
+      state: touch
+  - name: add web content
+    lineinfile:
+      line: "{{ ansible_hostname }}"
+      path: /var/www/html/index.html
+  - name:
+    service:
+      name: "{{ target_service }}"
+      state: "{{ target_state }}"
