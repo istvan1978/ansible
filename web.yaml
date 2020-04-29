@@ -27,8 +27,8 @@
     register: target_debug
   - debug:
       msg: "Output {{ target_debug }}"
-  handler:
-  - name:
+  handlers:
+  - name: restart httpd
     service:
       name: httpd
       state: restarted
