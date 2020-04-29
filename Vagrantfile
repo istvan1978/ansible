@@ -8,9 +8,9 @@
 
 
 $script = <<-SCRIPT
-yum check-update
-yum install -y epel-release
-yum install -y ansible git
+yum check-update && sleep 5
+yum install -y epel-release && sleep 5
+yum install -y ansible git && sleep 5
 
 echo "StrictHostKeyChecking no" >> /etc/ssh/ssh_config
 
