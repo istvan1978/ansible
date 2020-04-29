@@ -1,14 +1,19 @@
 --- # start web server
 - hosts: webservers
   become: yes
+  gather_facts: yes
   vars:
     target_service: httpd
     target_state: started
   tasks:
+  - debug:
+      var: target_service
   - name: install httpd
     yum:
       name: "{{ target_service }}"
       state: latest
+    notify:
+      - restart httpd
   - name: create index.html file
     file:
       name: /var/www/html/index.html
@@ -17,7 +22,14 @@
     lineinfile:
       line: "{{ ansible_hostname }}"
       path: /var/www/html/index.html
+    notify:
+      - restart httpd
+    register: target_debug
+  - debug:
+      msg: "Output {{ target_debug }}"
+  handler:
   - name:
     service:
-      name: "{{ target_service }}"
-      state: "{{ target_state }}"
+      name: httpd
+      state: restarted
+    listen: "restart httpd"
