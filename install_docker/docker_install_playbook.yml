@@ -2,10 +2,20 @@
 - hosts: all
   become: yes
 
+  tasks:
   - name: remove old docker
     yum:
-      name: "{{ docker, docker-client }}"
+      name: "{{ item }}"
       state: absent
+      loop:
+      - docker
+      - docker-client
+      - docker-client-latest
+      - docker-common
+      - docker-latest
+      - docker-latest-logrotate
+      - docker-logrotate
+      - docker-engine
 
   - name: install yum-utils
     yum:
@@ -18,8 +28,12 @@
 
   - name: Install docker-ce
     yum:
-      name: "{{ docker-ce, docker-ce-cli, containerd.io }}"
+      name: "{{ item }}"
       state: latest
+      loop:
+      - docker-ce
+      - docker-ce-cli
+      - containerd.io
     notify: docker install
 
   handlers:
