@@ -1,0 +1,61 @@
+--- # Student Lab
+- hosts: web1
+  become: yes
+
+  tasks:
+  - name: install httpd
+    yum:
+      name: httpd
+      state: latest
+    notify:
+      - restart httpd
+  handlers:
+
+  - name: restart httpd
+    service:
+      name: httpd
+      state: restarted
+    listen: "restart httpd"
+
+
+- hosts: web2
+  become: yes
+  tasks:
+  - name: Install Epel-Release
+    yum:
+      name: epel-release
+      state: latest
+
+  - name: Install Node.js
+    yum:
+      name: nodejs
+      state: latest
+
+  - name: copy app file
+    copy:
+      src: /home/ansible/ansible/ansib1e-last_lab/files/index.js
+      dest: /tmp/index.js
+    notify:
+      - restart app
+
+  - name: Copy service file
+    copy:
+      src: /home/ansible/ansible/ansib1e-last_lab/files/nodejs.service
+      dest: /etc/systemd/system/nodejs.service
+    notify:
+      - restart app
+
+  handlers:
+  - name: Start app
+    service:
+      name: nodejs.service
+      state: restarted
+    listen: restart app
+
+  - name: Open port 8088
+    firewalld:
+      port: 8088/tcp
+      permanent: yes
+      state: enabled
+
+

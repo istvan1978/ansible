@@ -1,0 +1,34 @@
+---
+- name: Install dependecy (pip docker)
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Install docker with pip
+      pip:
+        name: docker
+
+- name: Create docker containers
+  hosts: localhost
+  become: yes
+  tasks:
+    - name: Create container
+      docker_container:
+        image: busybox
+        command: sleep 1d
+        name: "busy{{ item }}"
+      with_sequence: count=3
+
+    - name: add them to hosts
+      add_host:
+        name: "busy{{ item }}"
+        groups: created_dockers
+        ansible_connection: docker
+      with_sequence: count=3
+
+- name: message from docker
+  hosts: created_dockers
+  gather_facts: False
+  become: yes
+  tasks:
+    - name: hostname echo
+      raw: echo $HOSTNAME
