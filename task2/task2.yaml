@@ -1,0 +1,28 @@
+---
+- hosts: all
+  tasks:
+  - name: create a file
+    file:
+      dest: /tmp/file
+      state: touch
+    tags:
+      - create
+
+- hosts: all:!nodejs
+  tags:
+    - delete
+  tasks:
+  - name: delete a file
+    file:
+      dest: /tmp/file
+      state: absent
+
+- hosts: nodejs
+
+  tasks:
+  - name: delete a file
+    file:
+      dest: /tmp/file
+      state: absent
+    tags:
+      - delete
