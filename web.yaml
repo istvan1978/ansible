@@ -1,10 +1,14 @@
 --- # start web server
 - hosts: webservers
+
   become: yes
   gather_facts: yes
+  serial: 1
+
   vars:
     target_service: httpd
     target_state: started
+
   tasks:
   - debug:
       var: target_service

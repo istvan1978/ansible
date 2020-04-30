@@ -1,0 +1,18 @@
+---
+- name: Deployment
+  hosts: web
+  serial: 1
+
+  tasks:
+    - name: disable node
+      debug:
+        msg: "disable {{ inventory_hostname }}"
+      delegate_to: "{{ groups['lb'][0] }}"
+
+    - name: Upgrade web
+      debug:
+        msg: "Upgrade Software"
+
+    - name: Enable node
+      debug:
+        msg: "enable {{ inventory_hostname }}"
