@@ -1,0 +1,31 @@
+---
+- hosts: all
+  vars:
+    brands:
+      asus:
+        rog:
+          color: grey
+          ram: ddr4_8gb
+        xn50:
+          color: orange
+          ram: ddr4_4gb
+      dell:
+        latitude_123:
+          color: black
+          ram: ddr4_extreme_8gb
+        xps:
+          color: golden
+          ram: DDR4L_4GB
+  tasks:
+  - name: deploy a dictionary looping template file
+    template:
+      src: templates/template_dict.j2
+      dest: /tmp/template_dict.txt
+    tags:
+      - create
+  - name: remove the templated file
+    file:
+      dest: /tmp/template_dict.txt
+      state: absent
+    tags:
+      - destroy

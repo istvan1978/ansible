@@ -1,0 +1,6 @@
+Actual group: {% for group in hostvars[inventory_hostname]['group_names'] %}{{group}}{% if not loop.last %}, {% endif %}{% endfor %}
+
+We like both {% for key,value in brands.iteritems() %}{{key}}{% if not loop.last %} and {% endif %}{% endfor %}
+
+W{% for key,value in brands.iteritems() %}e like{% for brand,name in brands[key].iteritems() %} {{name.color}} {{brand}}s{% if not loop.last %} and{% endif %}{% endfor %}{% if not loop.last %} and w{% endif %}{% endfor %} [ansibleuser@ansible-controller ansible2]$
+
