@@ -118,7 +118,7 @@ systemctl restart sshd
 SCRIPT
 
 $script3 = <<-SCRIPT
-useradd -s /bin/bash ansible
+useradd -m -s /bin/bash ansible
 mkdir /home/ansible/.ssh
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAg51XuJIeEQvuZjyWtfygpaJ8jZ1YscGQrUivowZpX+weZTRnV5ZRoxmKS0pFcjSn+gGVAE7g60VkwZmmtsBjcu+GkYKes6kD5RE4bxr25CHTQwD16MVQfs6KmFO79idyRJj3ZJzwaUBJxmofRZtQ5Vora2bGSASKsGsFAvD4QZc/2Tb5Ns+UcZ2W3h0jp3siD3dTpbV9P+HUDHptjLEmc4EynPJTPO1p8OExGk64shR64U/mWdWV5eTZP39FXXde4SqbAkGyoqhpol/YrXeIW5Ru2ZfrQq3iXWWRk55rWn3BibK5zNa29M4jYv5mNPfX2RDpWJV5stM1euFTqXYoFw== devop_privat" > /home/ansible/.ssh/authorized_keys
 chown -R ansible:ansible /home/ansible

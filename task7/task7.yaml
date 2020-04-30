@@ -1,0 +1,25 @@
+---
+- hosts: all
+  vars:
+    packages: [git,vim,wget]
+  tasks:
+  - name: install packages for Debian type OSs
+    apt:
+      name: '{{packages}}'
+      state: '{{pkg_state}}'
+    become: true
+    when: ansible_os_family == "Debian"
+
+  - name: install pacakges for Redhat type OSs
+    yum:
+      name: '{{packages}}'
+      state: '{{pkg_state}}'
+    become: true
+    when: ansible_os_family == "RedHat"
+
+  - name: create files based on package names
+    file:
+      dest: /tmp/{{item}}
+      state: '{{file_state}}'
+    with_items: '{{packages}}'
+    when: ansible_os_family == "Debian" 
