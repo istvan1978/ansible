@@ -1,7 +1,6 @@
 ---
 - name: Deployment
   hosts: web
-  serial: 1
 
   tasks:
     - name: disable node

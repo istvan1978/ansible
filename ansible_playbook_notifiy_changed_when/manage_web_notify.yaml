@@ -1,0 +1,34 @@
+---
+- name: Config and manage web app
+  hosts: web
+  vars:
+    repo: myrepo.com/repo.git
+    version: 8
+
+  tasks:
+    - name: Install nginx
+      debug:
+        msg: "Install nginx if not installed"
+
+    - name: Create web directory
+      debug:
+        msg: "create /webapp"
+
+    - name: Clone content
+      debug:
+        msg: "your git clone command"
+
+    - name: Configure nginx
+      debug:
+        msg: "use jinja template, not just simple copy"
+      notify: restart nginx
+
+    - name: Ensure nginx runnig
+      debug:
+        msg: "systemct start nginx"
+
+  handlers:
+    - name: restart nginx
+      debug:
+        msg: "Restrat nginx service"
+
