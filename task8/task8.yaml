@@ -1,0 +1,31 @@
+---
+- hosts: all
+  vars:
+    brands:
+      asus:
+        rog:
+          color: grey
+          ram: ddr4_8gb
+        xn50:
+          color: orange
+          ram: ddr4_4gb
+      dell:
+        latitude_123:
+          color: black
+          ram: ddr4_extreme_8gb
+        xps:
+          color: golden
+          ram: DDR4L_4GB
+  tasks:
+  - name: iterate over brands_asus array
+    file:
+      name: '/tmp/{{item.key}}-{{item.value.color}}'
+      state: '{{file_state}}'
+    with_dict: '{{brands.asus}}'
+
+  - name: iterate over brands_dell array
+    file:
+      name: '/tmp/{{item.key}}-{{item.value.color}}'
+      state: '{{file_state}}'
+    with_dict: '{{brands.dell}}'
+    when: 'item.value.ram == "ddr4_extreme_8gb"'

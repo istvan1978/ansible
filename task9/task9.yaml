@@ -1,0 +1,17 @@
+---
+- hosts: all
+  vars:
+    packages: [elinks,vim,wget]
+  tasks:
+  - name: deploy a template file with a loop
+    template:
+      src: templates/template_loop.j2
+      dest: /tmp/template.txt
+    tags:
+      - create
+  - name: remove the templated file
+    file:
+      dest: /tmp/template.txt
+      state: absent
+    tags:
+      - delete
