@@ -1,0 +1,25 @@
+- name: logrotate config for wtmp
+  logrotate:
+    name: wtmp
+    files:
+      - /var/log/wtmp
+    frequency: daily
+    missingok: yes
+    create: 0664 root utmp
+    rotate: "{{ ROTATE }}"
+    compress: yes
+    su: root utmp
+    state: "{{ STATE }}"
+
+- name: logrotate config for btmp
+  logrotate:
+    name: btmp
+    files:
+      - /var/log/btmp
+    missingok: yes
+    frequency: daily
+    create: 0660 root utmp
+    rotate: "{{ ROTATE }}"
+    compress: yes
+    su: root utmp
+    state: "{{ STATE }}"

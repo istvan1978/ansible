@@ -1,0 +1,125 @@
+---
+
+- name: ppswebapp hosts.yml - Add A3S as hostid
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/hosts.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion a3s host"
+    block: |2
+          - id                : {{A3S_HOSTID}}
+            name              : Alerting-As-A-Service
+            remote            : false
+            available         : true
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S ACDC
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion acdc component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S ACDC version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_ACDC_LB}}{{A3S_ACDC_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S Matcher
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion matcher component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S Matcher version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_MATCHER_LB}}{{A3S_MATCHER_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S Detector
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion detector component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S Detector version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_DETECTOR_LB}}{{A3S_DETECTOR_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S ADPP
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion adpp component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S ADPP version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_ADPP_LB}}{{A3S_ADPP_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S ACPP
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion acpp component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S ACPP version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_ACPP_LB}}{{A3S_ACPP_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp datasources.yml - A3S ACDC DB
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/datasources.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion acdc db component"
+    block: |2
+          - displayName       : A3S ACDC DB
+            databaseType      : MYSQL
+            databaseName      : acdc
+            databaseUrl       : {{A3S_ACDC_DB_URL}}
+            databasePort      : 3306
+            user              : {{A3S_ACDC_DB_USER}}
+            password          : {{A3S_ACDC_DB_PASSWORD}}
+            query             : "SELECT ReleaseNumber FROM acdc.release_log order by IdnReleaseLog desc LIMIT 1;"
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp datasources.yml - A3S DMCALERTSEARCH DB
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/datasources.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion acdc component"
+    block: |2
+          - displayName       : A3S DMCALERTSEARCH DB
+            databaseType      : MYSQL
+            databaseName      : dmcalertsearch
+            databaseUrl       : {{A3S_DMCALERTSEARCH_DB_URL}}
+            databasePort      : 3306
+            user              : {{A3S_DMCALERTSEARCH_DB_USER}}
+            password          : {{A3S_DMCALERTSEARCH_DB_PASSWORD}}
+            query             : "SELECT ReleaseNumber FROM dmcalertsearch.release_log order by IdnReleaseLog desc LIMIT 1;"
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp datasources.yml - A3S CRONCONFIG
+  blockinfile:
+    path: /apps/platform_install/build/ppswebapp/datasources.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion cronconfig"
+    block: |2
+          - displayName       : A3S DMCALERTSEARCH DB
+            databaseType      : MYSQL
+            databaseName      : dmcalertsearch
+            databaseUrl       : {{A3S_DMCALERTSEARCH_DB_URL}}
+            databasePort      : 3306
+            user              : {{A3S_DMCALERTSEARCH_DB_USER}}
+            password          : {{A3S_DMCALERTSEARCH_DB_PASSWORD}}
+            query             : "SELECT ReleaseNumber FROM dmcalertsearch.release_log order by IdnReleaseLog desc LIMIT 1;"
+  notify:
+    - restart ppswebapp

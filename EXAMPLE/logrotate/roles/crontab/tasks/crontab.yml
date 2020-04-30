@@ -1,0 +1,22 @@
+- name: Check owner of "{{ COMPRESS_PATH }}"
+  stat:
+    path: "{{COMPRESS_PATH}}"
+  register: owner
+
+- name: Implement Compress crontab-entry for "{{ owner.stat.pw_name }}" user
+  cron:
+    name: "Compress logs"
+    minute: "0"
+    hour: "22"
+    user: "{{ owner.stat.pw_name }}"
+    state: "{{ STATE }}"
+    job: '/bin/timeout -s 2 345600 find "{{COMPRESS_PATH}}" -type f -iname "{{COMPRESS_PATTERN}}" -a -not -iname "*.gz" -mtime +{{ COMPRESS_RETENTION }} {{ PATH_EXCLUDE }} -exec /bin/gzip {} \; > /dev/null 2>&1'
+
+- name: Implement Delete compressed logs crontab-entry for "{{ owner.stat.pw_name }}" user   
+  cron:
+    name: "Delete old logs"
+    minute: "0"
+    hour: "23"
+    user: "{{ owner.stat.pw_name }}"
+    state: "{{ STATE }}"
+    job: '/bin/timeout -s 2 345600 find "{{COMPRESS_PATH}}" -type f -iname "{{DELETE_PATTERN}}" -a -iname "*.gz" -mtime +{{ DELETE_RETENTION }} {{ PATH_EXCLUDE }} -exec /bin/rm {} \; > /dev/null 2>&1'

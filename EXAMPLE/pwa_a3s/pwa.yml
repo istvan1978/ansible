@@ -1,0 +1,30 @@
+---
+- name: Implement A3S entry to PWA - Grumpy
+  hosts: "*grumpy-app*"
+  become: True
+  gather_facts: no
+  roles:
+    - detector
+  pre_tasks:
+    - include_vars:
+        dir: vars/grumpy/
+
+- name: Implement A3S entry to PWA - Happy
+  hosts: "*happy-app*"
+  become: True
+  gather_facts: no
+  roles:
+    - detector
+  pre_tasks:
+    - include_vars:
+        dir: vars/happy/
+
+- name: Implement A3S entry to PWA - Pint
+  hosts: "*pint-app*"
+  become: True
+  gather_facts: no
+  roles:
+    - detector
+  pre_tasks:
+    - include_vars:
+        dir: vars/pint/

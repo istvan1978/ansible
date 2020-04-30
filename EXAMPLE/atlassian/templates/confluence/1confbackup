@@ -1,0 +1,15 @@
+#!/bin/sh
+
+if [ ! -d {{ATL_base_dir}}/BACKUP/confluence ]
+then
+   mkdir -p {{ATL_base_dir}}/BACKUP/confluence
+fi
+
+rm {{ATL_base_dir}}/BACKUP/confluence/confluence_daily_03.tgz
+mv {{ATL_base_dir}}/BACKUP/confluence/confluence_daily_02.tgz {{ATL_base_dir}}/BACKUP/confluence/confluence_daily_03.tgz
+mv {{ATL_base_dir}}/BACKUP/confluence/confluence_daily_01.tgz {{ATL_base_dir}}/BACKUP/confluence/confluence_daily_02.tgz
+
+/usr/bin/pg_dump confluencedb > /tmp/confluencedb.db.dump
+mv /tmp/confluencedb.db.dump {{ATL_base_dir}}/confluence/data/confluencedb.db.dump
+tar cfz {{ATL_base_dir}}/BACKUP/confluence/confluence_daily_01.tgz {{ATL_base_dir}}/confluence
+rm {{ATL_base_dir}}/confluence/data/confluencedb.db.dump

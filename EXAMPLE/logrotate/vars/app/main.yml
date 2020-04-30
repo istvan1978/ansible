@@ -1,0 +1,1 @@
+PATH_EXCLUDE: '-not -path "/apps/logs/apache/*" -a -not -path "/apps/logs/udrlogs/*"'

@@ -1,0 +1,12 @@
+STATE: present
+COMPRESS_PATH: /apps/logs/
+PATH_EXCLUDE: '-not -path "/apps/logs/apache/*"'
+#Example with more exclude
+#PATH_EXCLUDE: '-not -path "/apps/logs/apache/*" -a -not -path "/apps/logs/usagelogs"'
+#Example with empty exclude
+#PATH_EXCLUDE: ' '
+COMPRESS_PATTERN: '*log*'
+COMPRESS_RETENTION: 3
+
+DELETE_PATTERN: '*log*'
+DELETE_RETENTION: 30

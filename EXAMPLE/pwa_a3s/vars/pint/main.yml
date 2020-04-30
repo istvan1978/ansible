@@ -1,0 +1,11 @@
+A3S_ACDC_LB: 'PINT-AcdcL-Y3ZMT2QIWSDH-1240779524.us-east-1.elb.amazonaws.com'
+A3S_MATCHER_LB: 'internal-PINT-Match-KXBW6LJ8H3SV-693980656.us-east-1.elb.amazonaws.com'
+A3S_DETECTOR_LB: 'internal-PINT-Detec-1P3P6DSULBIT7-1482171525.us-east-1.elb.amazonaws.com'
+A3S_ADPP_LB: 'internal-PINT-ADPPL-1UU5FWMEVPNXH-1287049479.us-east-1.elb.amazonaws.com'
+A3S_ACPP_LB: 'internal-PINT-ADPPL-1UU5FWMEVPNXH-1287049479.us-east-1.elb.amazonaws.com'
+
+A3S_ACDC_DB_URL: 'a3s-pint-alertservicedb.cjqyou6n5nme.us-east-1.rds.amazonaws.com'
+A3S_DMCALERTSEARCH_DB_URL: 'a3s-pint-dmcalertsearch.cjqyou6n5nme.us-east-1.rds.amazonaws.com'
+
+A3S_ACDC_DB_PASSWORD: 'DUMMY'
+A3S_DMCALERTSEARCH_DB_PASSWORD: 'DUMMY'

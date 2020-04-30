@@ -1,0 +1,72 @@
+- name: ppswebapp hosts.yml - Add A3S as hostid
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/hosts.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion a3s host"
+    block: |2
+          - id                : {{A3S_HOSTID}}
+            name              : Alerting-As-A-Service
+            remote            : false
+            available         : true
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S ACDC
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion acdc component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S ACDC version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_ACDC_LB}}{{A3S_ACDC_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S Matcher
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion matcher component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S Matcher version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_MATCHER_LB}}{{A3S_MATCHER_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S Detector
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion detector component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S Detector version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_DETECTOR_LB}}{{A3S_DETECTOR_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S ADPP
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion adpp component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S ADPP version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_ADPP_LB}}{{A3S_ADPP_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp components.yml - A3S ACPP
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/components.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion acpp component"
+    block: |2
+          - hostId            : {{A3S_HOSTID}}
+            name              : A3S ACPP version
+            versionCommand    : 'curl --silent {{PROTOCOL}}{{A3S_ACPP_LB}}{{A3S_ACPP_CONTEXT_PATH}}'
+  notify:
+    - restart ppswebapp

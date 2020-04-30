@@ -1,0 +1,18 @@
+[Unit]
+Description=Jira Service
+After=network.target postgresql.service
+
+[Service]
+Type=forking
+User=root
+
+#{{ ansible_managed }} START
+Environment=JRE_HOME={{ATL_java_base_dir}}/jdk
+ExecStart={{ ATL_jira_base_dir }}/jira/bin/start-jira.sh
+ExecStop={{ ATL_jira_base_dir }}/jira/bin/stop-jira.sh
+ExecReload={{ ATL_jira_base_dir }}/jira/bin/stop-jira.sh | sleep 60 | {{ ATL_jira_base_dir }}/jira/bin/start-jira.sh
+#{{ ansible_managed }} STOP
+
+[Install]
+
+WantedBy=multi-user.target

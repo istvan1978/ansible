@@ -1,0 +1,3 @@
+- name: Detect ppswebapp
+  shell: ps -ef | grep -c "{{ PPSWEBAPP_PROCESS }}"
+  register: ppswebapp_java_process

@@ -1,0 +1,4 @@
+- name: upload zk
+  shell: "/apps/solr/solr6/bin/solr zk cp file:/apps/platform_install/security.json  zk:/security.json  -z solr-zk:2181/solr6/solrgacontent && /apps/solr/solr6/bin/solr zk cp file:/apps/platform_install/security.json  zk:/security.json  -z solr-zk:2181/solr6/solrdictionary"
+  become: true
+  become_user: jbossuser

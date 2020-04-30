@@ -1,0 +1,12 @@
+- name: Solr - Copy prepared security.json
+  copy:
+    src: security.json
+    dest: /apps/platform_install/
+    owner: jbossuser
+    group: atlas
+    mode: 0644
+    backup: yes
+  become: true
+  become_user: jbossuser
+  notify:
+    - upload zk

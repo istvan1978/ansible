@@ -1,0 +1,66 @@
+- name: ensure a list of packages installed
+  yum:
+    name: "{{ packages }}"
+  vars:
+    packages:
+    - epel-release
+    - python-passlib
+
+- name: Create solruser for basicauth
+  htpasswd:
+    path: /etc/httpd/conf/htpasswd-users
+    name: solruser
+    password: 'dummy'
+    owner: root
+    group: root
+    mode: 0644
+
+- name: Apache - Copy prepared solr.conf
+  copy:
+    src: solr.conf
+    dest: /etc/httpd/conf.d/
+  notify:
+    - restart apache
+    
+- name: Apache - append to apache global config_1
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^RemoteIPHeader'
+    line: 'RemoteIPHeader X-Forwarded-For'
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart apache
+    
+- name: Apache - append to apache global config_2
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^LimitRequestLine'
+    line: 'LimitRequestLine 245760'
+    insertafter: '^RemoteIPHeader '
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart apache
+    
+- name: Apache - append to apache global config_3
+  lineinfile:
+    path: /etc/httpd/conf/httpd.conf
+    regexp: '^LimitRequestFieldSize'
+    line: 'LimitRequestFieldSize 245760'
+    insertafter: '^LimitRequestLine '
+    owner: root
+    group: root
+    mode: 0644
+  notify:
+    - restart apache
+    
+- name: test services
+  command: systemctl status httpd
+  register: service_status
+
+- debug:
+    msg:
+      - " {{ service_status.stdout_lines }}"

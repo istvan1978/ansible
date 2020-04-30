@@ -1,0 +1,5 @@
+- name: Generate /etc/hosts file
+  template:
+    src=happy.j2
+    dest=/etc/hosts
+  backup: yes

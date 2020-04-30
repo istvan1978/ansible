@@ -1,0 +1,41 @@
+# handler for postgres
+- name: restart postgres
+  service:
+    name: postgresql
+    state: restarted
+
+# handlers for init scripts (jira / confluence)
+- name: reload systemd
+  command: systemctl daemon-reload
+
+- name: trigger cron
+  action: shell run-parts /etc/cron.daily/
+
+- name: autostart jira
+  service:
+    name: jira
+    enabled: true
+
+- name: autostart confluence
+  service:
+    name: confluence
+    enabled: true
+
+# handlers for atlassain applications (jira / confluence)
+- name: restart confluence
+  service:
+    name: confluence
+    state: restarted
+
+- name: restart jira
+  service:
+    name: jira
+    state: restarted
+
+- name: finish install confluence
+  debug:
+    msg: "Please follow setup guideline! You can access it on remotehost - localhost:{{ATL_confluence_def_conn}}{{ATL_confluence_context_path}}. SETUP: Production Installation; next --> next --> paste your license; next --> PostgreSQL; External Database --> Direct jDBC --> expand URL with db - {{ATL_confluence_dbname}}; {{ATL_confluence_dbuser}}; {{ATL_confluence_dbpassword}}; next --> Example Site --> Manage users and groups within Confluence --> Configure account --> Start --> no headphone --> Skip --> Space name: example"
+
+- name: finish install jira
+  debug:
+    msg: "Please follow setup guideline! You can access it on remotehost -  localhost:{{ATL_jira_def_conn}}{{ATL_jira_context_path}}. SETUP: Sprache; ENG; I'll set it up myself; next --> My Own Database; PostgreSQL; 127.0.0.1; 5432; {{ATL_jira_dbname}}; {{ATL_jira_dbuser}}; {{ATL_jira_dbpassword}}; public; Test Connection;  next --> Jira 3D; Private; BaseURL --> paste license; next --> Set up administrator account; next --> later; finish --> english; continue --> next --> Create sample project --> kanban; next --> name:example"

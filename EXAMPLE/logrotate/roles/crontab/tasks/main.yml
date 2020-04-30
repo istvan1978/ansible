@@ -1,0 +1,5 @@
+- name: Common - Include crontab
+  include_tasks: crontab.yml
+
+#- name: Implement multiple-time gzipped files fix
+#  include_tasks: fix.yml

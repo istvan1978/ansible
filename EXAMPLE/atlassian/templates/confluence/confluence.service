@@ -1,0 +1,18 @@
+[Unit]
+Description=Confluence Service
+After=network.target postgresql.service jira.service
+
+[Service]
+Type=forking
+User=root
+
+#{{ ansible_managed }} START
+Environment=JRE_HOME={{ATL_java_base_dir}}/jdk
+ExecStart={{ ATL_confluence_base_dir }}/confluence/bin/start-confluence.sh
+ExecStop={{ ATL_confluence_base_dir }}/confluence/bin/stop-confluence.sh
+ExecReload={{ ATL_confluence_base_dir }}/confluence/bin/stop-confluence.sh | sleep 60 | {{ ATL_confluence_base_dir }}/confluence/bin/start-confluence.sh
+#{{ ansible_managed }} STOP
+
+[Install]
+
+WantedBy=multi-user.target

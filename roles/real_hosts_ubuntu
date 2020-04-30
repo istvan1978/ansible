@@ -1,0 +1,35 @@
+[rhel]
+web1
+node1
+
+[web]
+web1 ansible_host=192.168.56.112
+
+[web:vars]
+web_file=/tmp/web-file
+
+
+[nodejs]
+node1 ansible_host=192.168.56.113
+
+[backup]
+192.168.56.113
+
+[ubuntu]
+ubuntu1 ansible_host=192.168.56.233 
+
+[ubuntu:vars]
+ansible_user=student
+ansible_pass=******
+ansible_sudo_pass=******
+ansible_become_pass=******
+
+[backup:vars]
+backup_file=/tmp/backup-file
+
+[all:vars]
+ansible_connection=ssh
+ansible_user=ansibleuser
+all_file=/tmp/all_file
+ansible_become_pass=000000
+ansible_sudo_pass=000000

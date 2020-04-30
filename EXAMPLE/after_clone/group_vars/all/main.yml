@@ -1,0 +1,6 @@
+---
+IMPORT_PROCESS: "com.wk.atlas.OpusReceiver"
+PPSWEBAPP_PROCESS: "ppswebapp"
+SCRIPT_DESTINATION: "/apps/scripts/admin/pwa/"
+SCRIPT_RESULT_DESTINATION: "/apps/WEBS/platform_install/build/"
+ppswebapp_hostid: "app"

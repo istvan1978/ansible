@@ -1,0 +1,13 @@
+- name: modify filebeat
+  replace:
+    dest: /etc/filebeat/filebeat.yml
+    regexp: 'environment: onega-grumpy'
+    replace: 'environment: onega-happy'
+    owner: root
+    group: root
+    mode: 0600
+
+- name: Restart filebeat
+  service:
+    name: filebeat
+    state: restarted

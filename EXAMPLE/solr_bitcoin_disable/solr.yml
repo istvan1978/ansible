@@ -1,0 +1,26 @@
+- name: Implementent fixes on  APP instances
+  hosts: "*-app"
+  become: True
+  roles:
+    - apache
+  pre_tasks:
+    - include_vars:
+        dir: vars/app/
+    
+- name: Implementent fixes on  SOLR instances
+  hosts: "*-solr"
+  become: True
+  roles:
+    - solr
+  pre_tasks:
+    - include_vars:
+        dir: vars/solr/
+        
+- name: Implementent fixes on  WEB instances
+  hosts: "*-web"
+  become: True
+  roles:
+    - apache
+  pre_tasks:
+    - include_vars:
+        dir: vars/app/

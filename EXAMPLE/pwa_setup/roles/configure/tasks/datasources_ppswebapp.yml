@@ -1,0 +1,50 @@
+- name: ppswebapp datasources.yml - A3S ACDC DB
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/datasources.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion acdc db component"
+    block: |2
+          - displayName       : A3S ACDC DB
+            databaseType      : MYSQL
+            databaseName      : acdc
+            databaseUrl       : {{A3S_ACDC_DB_URL}}
+            databasePort      : 3306
+            user              : {{A3S_ACDC_DB_USER}}
+            password          : {{A3S_ACDC_DB_PASSWORD}}
+            query             : "SELECT ReleaseNumber FROM acdc.release_log order by IdnReleaseLog desc LIMIT 1;"
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp datasources.yml - A3S DMCALERTSEARCH DB
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/datasources.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion acdc component"
+    block: |2
+          - displayName       : A3S DMCALERTSEARCH DB
+            databaseType      : MYSQL
+            databaseName      : dmcalertsearch
+            databaseUrl       : {{A3S_DMCALERTSEARCH_DB_URL}}
+            databasePort      : 3306
+            user              : {{A3S_DMCALERTSEARCH_DB_USER}}
+            password          : {{A3S_DMCALERTSEARCH_DB_PASSWORD}}
+            query             : "SELECT ReleaseNumber FROM dmcalertsearch.release_log order by IdnReleaseLog desc LIMIT 1;"
+  notify:
+    - restart ppswebapp
+
+- name: ppswebapp datasources.yml - A3S CRONCONFIG
+  blockinfile:
+    path: "{{ PPSWEBAPP_PATH }}"/env-config/datasources.yaml
+    backup: yes
+    marker: "# {mark} ANSIBLE MANAGED BLOCK insertion cronconfig"
+    block: |2
+          - displayName       : A3S DMCALERTSEARCH DB
+            databaseType      : MYSQL
+            databaseName      : dmcalertsearch
+            databaseUrl       : {{A3S_DMCALERTSEARCH_DB_URL}}
+            databasePort      : 3306
+            user              : {{A3S_DMCALERTSEARCH_DB_USER}}
+            password          : {{A3S_DMCALERTSEARCH_DB_PASSWORD}}
+            query             : "SELECT ReleaseNumber FROM dmcalertsearch.release_log order by IdnReleaseLog desc LIMIT 1;"
+  notify:
+    - restart ppswebapp

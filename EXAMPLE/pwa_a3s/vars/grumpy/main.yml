@@ -1,0 +1,11 @@
+A3S_ACDC_LB: 'a3s-acdc-grumpy.psdidevenvs.com'
+A3S_MATCHER_LB: 'internal-psdi-eu-grumpy-a3s-i-acdc-alb-426082806.us-east-1.elb.amazonaws.com'
+A3S_DETECTOR_LB: 'internal-psdi-eu-grumpy-a3s-i-acdc-alb-426082806.us-east-1.elb.amazonaws.com'
+A3S_ADPP_LB: 'internal-psdi-eu-grumpy-a3s-i-acdc-alb-426082806.us-east-1.elb.amazonaws.com'
+A3S_ACPP_LB: 'internal-psdi-eu-grumpy-a3s-i-acdc-alb-426082806.us-east-1.elb.amazonaws.com'
+
+A3S_ACDC_DB_URL: 'a3s-grumpymulti-alertservicedb.cjqyou6n5nme.us-east-1.rds.amazonaws.com'
+A3S_DMCALERTSEARCH_DB_URL: 'a3s-grumpymulti-dmcalertsearch.cjqyou6n5nme.us-east-1.rds.amazonaws.com'
+
+A3S_ACDC_DB_PASSWORD: 'DUMMY'
+A3S_DMCALERTSEARCH_DB_PASSWORD: 'DUMMY'

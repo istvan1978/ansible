@@ -1,0 +1,6 @@
+---
+handlers:
+  - include_tasks: app_ppswebapp.yml, datasources_ppswebapp.yml
+
+#- name: configure ppswebapp
+#  include: app_ppswebapp.yml, datasources_ppswebapp.yml

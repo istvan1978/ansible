@@ -1,0 +1,7 @@
+---
+- name: Implement SNOW agent
+  hosts: key_PSDI
+  become: True
+  gather_facts: no 
+  roles:
+    - snow_agent

@@ -1,0 +1,61 @@
+- name: Postgres - Install "{{ ATL_postgres_version }}"
+  yum:
+    name: "{{ ATL_postgres_packages }}"
+    state: present
+
+- name: Postgres - Initialize database
+  action: shell postgresql-setup initdb creates=/var/lib/pgsql/data/pg_hba.conf
+  ignore_errors: yes
+
+- name: Postgres - Set security settings
+  copy:
+    src: postgres/pg_hba.conf
+    dest: /var/lib/pgsql/data/
+  notify:
+    - restart postgres
+
+- name: Postgres - Start & Autostart PostgreSQL
+  service:
+    name: postgresql
+    enabled: true
+    state: started
+
+- name: Postgres - Create {{ ATL_jira_dbuser }} PostgreSQL user     
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: "{{ ATL_jira_dbuser }}"
+    password: "{{ ATL_jira_dbpassword }}"
+    encrypted: yes
+    role_attr_flags: CREATEDB,NOSUPERUSER
+
+- name: Postgres - Create {{ ATL_confluence_dbuser }} PostgreSQL user
+  become: true
+  become_user: postgres
+  postgresql_user:
+    name: "{{ ATL_confluence_dbuser }}"
+    password: "{{ ATL_confluence_dbpassword }}"
+    encrypted: yes
+    role_attr_flags: CREATEDB,NOSUPERUSER
+
+- name: Postgres - Create {{ ATL_jira_dbname }} database
+  become: true
+  become_user: postgres      
+  postgresql_db:
+    name: "{{ ATL_jira_dbname }}"
+    encoding: UNICODE
+    lc_collate: C
+    lc_ctype: C
+    template: template0
+    owner: "{{ ATL_jira_dbuser }}"
+    state: present
+
+- name: Postgres - Create {{ ATL_confluence_dbname }} database
+  become: true
+  become_user: postgres
+  postgresql_db:
+    name: "{{ ATL_confluence_dbname }}"
+    encoding: UNICODE
+    template: template0
+    owner: "{{ ATL_confluence_dbuser }}"
+    state: present

@@ -1,0 +1,3 @@
+#Defined varialbes here overwrite role's defaults.
+COMPRESS_RETENTION: 2
+DELETE_RETENTION: 15

@@ -1,0 +1,47 @@
+- name: Ansible running
+  file:
+    path: /tmp/ansible_running
+    state: touch
+
+- name: Install PostgreSQL
+  include: postgres.yml
+  tags:
+    - postgres
+
+- name: Install Java
+  include: java.yml
+  tags:
+    - java
+
+- name: Install Jira
+  include: jira.yml
+  tags:
+    - jira
+
+- name: Install Confluence
+  include: confluence.yml
+  tags:
+    - confluence
+
+- name: Manage required host entrys
+  blockinfile:
+    path: /etc/hosts
+    block: |
+      {{ item.ip }} {{ item.name }}
+    marker: "# {mark} ANSIBLE MANAGED {{ item.name }}"
+  with_items:
+    - { name: misp-hub.t-systems-service.com, ip: "{{ ATL_proxy_ip }}" }
+    - { name: "{{ ATL_proxy_domain }}", ip: "{{ ATL_proxy_ip }}" }
+    - { name: mailbb.t-systems.com, ip: "{{ ATL_proxy_ip }}" }
+  tags:
+    - hosts
+
+- name: Install backup solution
+  include: backup.yml
+  tags:
+    - backup
+
+- name: Ansible finished running
+  file:
+    path: /tmp/ansible_running
+    state: absent

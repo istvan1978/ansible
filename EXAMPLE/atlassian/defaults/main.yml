@@ -1,0 +1,33 @@
+# Common variables
+ATL_base_dir: /export
+
+#Java variables
+ATL_java_base_dir: "{{ ATL_base_dir }}/java"
+ATL_java_source_file: jdk-8u121-linux-x64.tar.gz
+ATL_java_untar_folder_name: jdk1.8.0_121
+
+#Jira variables
+ATL_jira_base_dir: "{{ ATL_base_dir }}/jira"
+ATL_jira_source_file: atlassian-jira-software-7.3.6.tar.gz
+ATL_jira_untar_folder_name: atlassian-jira-software-7.3.6-standalone
+ATL_jira_def_conn: 18080
+ATL_jira_app_conn: 8081
+ATL_jira_context_path: /tools/jira
+
+#Confluence variables
+ATL_confluence_base_dir: "{{ ATL_base_dir }}/confluence"
+ATL_confluence_source_file: atlassian-confluence-6.1.3.tar.gz
+ATL_confluence_untar_folder_name: atlassian-confluence-6.1.3
+ATL_confluence_def_conn: 8080
+ATL_confluence_app_conn: 8082
+ATL_confluence_context_path: /tools/confluence
+
+#Postgres variables
+ATL_postgres_version: "psql (PostgreSQL) 9.2.18"
+ATL_postgres_packages: [ postgresql-server-9.2.18-1.el7.x86_64, postgresql-contrib-9.2.18-1.el7.x86_64, python-psycopg2 ]
+ATL_jira_dbname: "jiradb"
+ATL_jira_dbuser: "jirauser"
+ATL_jira_dbpassword: "testpwjira"
+ATL_confluence_dbname: "confluencedb"
+ATL_confluence_dbuser: "confluenceuser"
+ATL_confluence_dbpassword: "testpwconfluence"
