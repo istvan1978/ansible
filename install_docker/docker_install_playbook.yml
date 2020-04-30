@@ -5,9 +5,10 @@
   tasks:
   - name: remove old docker
     yum:
-      name: "{{ item }}"
+      name: "{{ packages }}"
       state: absent
-    loop:
+    vars:
+      packages:
       - docker
       - docker-client
       - docker-client-latest
@@ -28,9 +29,10 @@
 
   - name: Install docker-ce
     yum:
-      name: "{{ item }}"
+      name: "{{ packages }}"
       state: latest
-    loop:
+    vars:
+      packages:
       - docker-ce
       - docker-ce-cli
       - containerd.io
