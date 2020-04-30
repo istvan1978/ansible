@@ -7,7 +7,7 @@
     yum:
       name: "{{ item }}"
       state: absent
-      loop:
+    loop:
       - docker
       - docker-client
       - docker-client-latest
@@ -30,7 +30,7 @@
     yum:
       name: "{{ item }}"
       state: latest
-      loop:
+    loop:
       - docker-ce
       - docker-ce-cli
       - containerd.io
