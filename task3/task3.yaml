@@ -1,0 +1,15 @@
+---
+- hosts: all
+  tasks:
+  - name: 1st task
+    file:
+      dest: /tmp/first-task
+      state: '{{file_state}}'
+  - name: 2nd task
+    file:
+      dest: /tmp/second-task
+      state: '{{file_state}}'
+  - name: 3rd task
+    file:
+      dest: /tmp/last-task
+      state: '{{file_state}}'
