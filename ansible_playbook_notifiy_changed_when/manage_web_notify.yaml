@@ -22,6 +22,7 @@
       debug:
         msg: "use jinja template, not just simple copy"
       notify: restart nginx
+      changed_when: True
 
     - name: Ensure nginx runnig
       debug:

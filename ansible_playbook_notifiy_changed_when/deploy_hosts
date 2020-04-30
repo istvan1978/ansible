@@ -1,0 +1,11 @@
+[web]
+web1
+web2
+web3
+
+[lb]
+lb1
+lb2
+
+[all:var]
+ansible_connection=local
