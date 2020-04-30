@@ -1,0 +1,30 @@
+--- # This playbook will install docker on Centos 7
+- hosts: all
+  become: yes
+
+  - name: remove old docker
+    yum:
+      name: "{{ docker, docker-client }}"
+      state: absent
+
+  - name: install yum-utils
+    yum:
+      name: yum-utils
+      state: latest
+
+  - name: Add docker repository
+    shell:
+      cmd: yum-config-manager --add-repo https://download.docker.com/linux/centos/docker-ce.repo
+
+  - name: Install docker-ce
+    yum:
+      name: "{{ docker-ce, docker-ce-cli, containerd.io }}"
+      state: latest
+    notify: docker install
+
+  handlers:
+  - name: Start docker service
+    service:
+      name: docker
+      state: restarted
+    listen: docker install
