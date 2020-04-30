@@ -1,0 +1,14 @@
+---
+- hosts: all
+  tasks:
+  - name: create
+    file:
+      dest: /tmp/webfile
+      state: '{{file_state}}'
+    when: inventory_hostname == 'node1' and file_implement == 'yes'
+
+  - name: create
+    file:
+      dest: /tmp/nodefile
+      state: '{{file_state}}'
+    when: inventory_hostname == 'node1' 
