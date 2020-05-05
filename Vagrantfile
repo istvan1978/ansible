@@ -47,7 +47,6 @@ EjUCgYEAtiG8y8YzTZJCWdJJbao1i4AGB1BQ+mb66lUouFP0GzaWoU4KqN/vLiMh
 ocCwvEVA5D3GJBkQ3zVMogt20m1mh5ktDw4isGR9ZMs2rtW0yWM=
 -----END RSA PRIVATE KEY-----
 " > /home/devops/.ssh/id_rsa
-
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAg51XuJIeEQvuZjyWtfygpaJ8jZ1YscGQrUivowZpX+weZTRnV5ZRoxmKS0pFcjSn+gGVAE7g60VkwZmmtsBjcu+GkYKes6kD5RE4bxr25CHTQwD16MVQfs6KmFO79idyRJj3ZJzwaUBJxmofRZtQ5Vora2bGSASKsGsFAvD4QZc/2Tb5Ns+UcZ2W3h0jp3siD3dTpbV9P+HUDHptjLEmc4EynPJTPO1p8OExGk64shR64U/mWdWV5eTZP39FXXde4SqbAkGyoqhpol/YrXeIW5Ru2ZfrQq3iXWWRk55rWn3BibK5zNa29M4jYv5mNPfX2RDpWJV5stM1euFTqXYoFw== devop_privat" > /home/devops/.ssh/authorized_keys
 chown -R devops:devops /home/devops
 chmod 400 /home/devops/.ssh/id_rsa
@@ -84,7 +83,6 @@ EjUCgYEAtiG8y8YzTZJCWdJJbao1i4AGB1BQ+mb66lUouFP0GzaWoU4KqN/vLiMh
 ocCwvEVA5D3GJBkQ3zVMogt20m1mh5ktDw4isGR9ZMs2rtW0yWM=
 -----END RSA PRIVATE KEY-----
 " > /home/ansible/.ssh/id_rsa
-
 echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAg51XuJIeEQvuZjyWtfygpaJ8jZ1YscGQrUivowZpX+weZTRnV5ZRoxmKS0pFcjSn+gGVAE7g60VkwZmmtsBjcu+GkYKes6kD5RE4bxr25CHTQwD16MVQfs6KmFO79idyRJj3ZJzwaUBJxmofRZtQ5Vora2bGSASKsGsFAvD4QZc/2Tb5Ns+UcZ2W3h0jp3siD3dTpbV9P+HUDHptjLEmc4EynPJTPO1p8OExGk64shR64U/mWdWV5eTZP39FXXde4SqbAkGyoqhpol/YrXeIW5Ru2ZfrQq3iXWWRk55rWn3BibK5zNa29M4jYv5mNPfX2RDpWJV5stM1euFTqXYoFw== devop_privat" > /home/ansible/.ssh/authorized_keys
 
 cd /home/ansible/
@@ -95,6 +93,7 @@ chmod 400 /home/ansible/.ssh/id_rsa
 
 echo "ansible:password" | chpasswd
 
+echo "ansible ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/ansible
 
 echo "192.168.56.10 ansible" >> /etc/hosts
 echo "192.168.56.20 web1" >> /etc/hosts
