@@ -145,6 +145,11 @@ Vagrant.configure("2") do |config|
     web2.vm.provision "shell", "inline": $script2
   end
 
-
+  config.vm.define "ubuntu" do |ubuntu|
+    ubuntu.vm.box = "hashicorp/bionic64"
+    ubuntu.vm.hostname = "ubuntu"
+    ubuntu.vm.network "private_network", ip: "192.168.56.40"
+    ubuntu.vm.provision "shell", "inline": $script2
+  end
 
 end
