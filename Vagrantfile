@@ -116,6 +116,21 @@ systemctl restart sshd
 
 SCRIPT
 
+$script3 = <<-SCRIPT
+useradd -s /bin/bash ansible
+mkdir /home/ansible/.ssh
+echo "ssh-rsa AAAAB3NzaC1yc2EAAAABJQAAAQEAg51XuJIeEQvuZjyWtfygpaJ8jZ1YscGQrUivowZpX+weZTRnV5ZRoxmKS0pFcjSn+gGVAE7g60VkwZmmtsBjcu+GkYKes6kD5RE4bxr25CHTQwD16MVQfs6KmFO79idyRJj3ZJzwaUBJxmofRZtQ5Vora2bGSASKsGsFAvD4QZc/2Tb5Ns+UcZ2W3h0jp3siD3dTpbV9P+HUDHptjLEmc4EynPJTPO1p8OExGk64shR64U/mWdWV5eTZP39FXXde4SqbAkGyoqhpol/YrXeIW5Ru2ZfrQq3iXWWRk55rWn3BibK5zNa29M4jYv5mNPfX2RDpWJV5stM1euFTqXYoFw== devop_privat" > /home/ansible/.ssh/authorized_keys
+chown -R ansible:ansible /home/ansible
+
+echo "ansible:password" | chpasswd
+
+echo "ansible ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/ansible
+
+sed -i 's/\#PasswordAuthentication no/PasswordAuthentication yes/g' /etc/ssh/sshd_config
+systemctl restart sshd
+
+SCRIPT
+
 
 Vagrant.configure("2") do |config|
   config.vm.box = "centos/7"
@@ -146,10 +161,11 @@ Vagrant.configure("2") do |config|
   end
 
   config.vm.define "ubuntu" do |ubuntu|
-    ubuntu.vm.box = "hashicorp/bionic64"
-    ubuntu.vm.hostname = "ubuntu"
+	ubuntu.vm.box = "hashicorp/bionic64"
+    ubuntu.vm.hostname = "web2"
     ubuntu.vm.network "private_network", ip: "192.168.56.40"
-    ubuntu.vm.provision "shell", "inline": $script2
+    ubuntu.vm.provision "shell", "inline": $script3
   end
+
 
 end
