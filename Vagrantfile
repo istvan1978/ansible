@@ -98,6 +98,7 @@ echo "ansible ALL=(ALL:ALL) NOPASSWD: ALL" >> /etc/sudoers.d/ansible
 echo "192.168.56.10 ansible" >> /etc/hosts
 echo "192.168.56.20 web1" >> /etc/hosts
 echo "192.168.56.30 web2" >> /etc/hosts
+echo "192.168.56.40 ubuntu" >> /etc/hosts
 
 SCRIPT
 
