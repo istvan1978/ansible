@@ -1,7 +1,0 @@
-- name: Detect ppswebapp
-  shell: ps -ef | grep -c "{{ PPSWEBAPP_PROCESS }}"
-  register: ppswebapp_java_process
-
-- import_role:
-    name: ppswebapp
-  when: ppswebapp_java_process.stdout|int > 2

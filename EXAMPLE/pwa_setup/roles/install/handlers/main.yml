@@ -1,2 +1,0 @@
-- name: restart ppswebapp
-  include: restart_ppswebapp.yml

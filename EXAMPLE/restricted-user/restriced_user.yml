@@ -1,7 +1,0 @@
----
-- name: Implement restricted user to "limited" env(s).
-  hosts: all
-  become: True
-  gather_facts: no 
-  roles:
-    - adduser

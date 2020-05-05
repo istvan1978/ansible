@@ -1,2 +1,0 @@
-- name: Common - Include solr and zk tasks
-  include_tasks: solr_zk.yml

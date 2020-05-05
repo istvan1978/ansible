@@ -1,5 +1,0 @@
-- name: Check crontab entries
-  hosts: all
-  become: True
-  roles:
-    - crontab

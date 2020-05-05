@@ -1,9 +1,0 @@
-- name: Check crontab-entries for {{ USER }} user.
-  shell: crontab -l
-  become: true
-  become_user: "{{ USER }}"
-  register: cron
-  
-- debug:
-    msg:
-      - " {{ cron.stdout_lines }}"

@@ -1,7 +1,0 @@
----
-- name: Implement opsramp agent
-  hosts: key_PSDI
-  become: True
-  gather_facts: no 
-  roles:
-    - opsramp_agent

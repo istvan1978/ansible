@@ -1,2 +1,0 @@
-- name: Common - Include logrotated
-  include_tasks: logrotated.yml

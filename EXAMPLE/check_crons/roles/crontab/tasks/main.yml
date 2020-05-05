@@ -1,2 +1,0 @@
-- name: Common - Include crontab
-  include_tasks: crontab.yml
